@@ -41,6 +41,7 @@ public class CreditAccount extends Account {
         }
         // call the original withdraw for
         // this makes it so withdrawing increases the balance u owe
-        return super.deposit(amount);
+        super.deposit(amount);
+        return amount;
     }
 }

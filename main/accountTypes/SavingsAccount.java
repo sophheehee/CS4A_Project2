@@ -43,7 +43,7 @@ public class SavingsAccount extends Account implements IntrestBearing{
     }
 
     @Override
-    public float deposit(float amount) {
+    public boolean deposit(float amount) {
         return super.deposit(amount);
     }
 

@@ -42,7 +42,7 @@ public class CheckingAccount extends Account implements LoanEligible {
     }
 
     @Override
-    public float deposit(float amount) {
+    public boolean deposit(float amount) {
         return super.deposit(amount);
     }
 
@@ -50,8 +50,9 @@ public class CheckingAccount extends Account implements LoanEligible {
     public float withdraw(float amount) throws InsufficientFunds {
         //if balance minus amount is above min balance and also above zero
         if ((minbalance > (super.getBalance() - amount)) && ((super.getBalance() - amount)>0)) {
+            timesBelowMinBalance++;// i fixed lil logic bug - soph
             throw new InsufficientFunds("WARNING: Withdrawal of " + amount + " brings your account below minimum balance $" + minbalance);
-            timesBelowMinBalance++;
+
         }
         // call the original withdraw for
         return super.withdraw(amount);
