@@ -75,11 +75,96 @@ public class Main {
 
             accChoice = getIntInput(input);
 
-//        if (accChoice == 1){
-//            addAcc(Account account){ accounts.addAcc
-//        }
+            switch(accChoice){
+                case 1: { // savings
+                    System.out.print("Enter account name: ");
+                    String name = input.nextLine();
 
+                    System.out.print("Enter account number: ");
+                    int number = getIntInput(input);
+                    if (accountExists(bankManager, number)) { // make sure it do not!
+                        System.out.println("Error: Account number already exists.");
+                        break;
+                    }
+                    System.out.print("Enter starting balance: ");
+                    float balance = getFloatInput(input);
 
+                    System.out.print("Enter interest rate: ");
+                    float interestRate = getFloatInput(input);
+
+                    SavingsAccount account =
+                            new SavingsAccount(name, number, balance, interestRate);
+
+                    bankManager.addAcc(account);
+                    System.out.println("Savings account created successfully.");
+                    break;
+                }
+                case 2: { //checking
+                    System.out.print("Enter account name: ");
+                    String name = input.nextLine();
+
+                    System.out.print("Enter account number: ");
+                    int number = getIntInput(input);
+                    if (accountExists(bankManager, number)) {
+                        System.out.println("Error: Account number already exists.");
+                        break;
+                    }
+                    System.out.print("Enter starting balance: ");
+                    float balance = getFloatInput(input);
+
+                    System.out.print("Enter minimum balance: ");
+                    float minBalance = getFloatInput(input);
+
+                    CheckingAccount account = new CheckingAccount(name, number, balance, minBalance);
+                    bankManager.addAcc(account);
+                    System.out.println("Checking account created successfully.");
+                    break;
+
+                }
+                case 3:{ //business acc
+                    System.out.print("Enter account name: ");
+                    String name = input.nextLine();
+
+                    System.out.print("Enter account number: ");
+                    int number = getIntInput(input);
+                    if (accountExists(bankManager, number)) {
+                        System.out.println("Error: Account number already exists.");
+                        break;
+                    }
+                    System.out.print("Enter starting balance: ");
+                    float balance = getFloatInput(input);
+                    BusinessAccount account = new BusinessAccount(name, number, balance);
+                    bankManager.addAcc(account);
+                    System.out.println("Business account created successfully.");
+                    break;
+                }
+                case 4: { //crebit
+                    System.out.print("Enter account name: ");
+                    String name = input.nextLine();
+
+                    System.out.print("Enter account number: ");
+                    int number = getIntInput(input);
+                    if (accountExists(bankManager, number)) {
+                        System.out.println("Error: Account number already exists.");
+                        break;
+                    }
+                    System.out.print("Enter starting balance: ");
+                    float balance = getFloatInput(input);
+
+                    System.out.print("Enter credit limit: ");
+                    float creditLimit = getFloatInput(input);
+
+                    CreditAccount account = new CreditAccount(name, number, balance, creditLimit);
+                    bankManager.addAcc(account);
+                    System.out.println("Credit account created successfully.");
+                    break;
+                }
+                case 5:
+                    System.out.println("Returning to main menu...");
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+            }
         }
 
     }
@@ -130,7 +215,6 @@ private static void manageCheckingAccount(CheckingAccount account, Scanner input
                         System.out.println("Deposit successful.");
                     }
                     break;
-
                 case 2:
                     System.out.print("Enter withdrawal amount: ");
                     float w = getFloatInput(input);
@@ -340,5 +424,13 @@ private static void manageCreditAccount(CreditAccount account, Scanner input) {
             return -1;
         }
     }
-
+// helper to make sure account doesn't exist yety
+private static boolean accountExists(Bank bankManager, int number) {
+    try {
+        bankManager.getAccount(number);
+        return true;
+    } catch (AccountNotFound e) {
+        return false;
+    }
+}
 }// where main class ends
