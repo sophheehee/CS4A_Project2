@@ -92,13 +92,13 @@ public class Main {
             Account account = bankManager.getAccount(accountNumber);
 
             if (account instanceof SavingsAccount) {
-                //manageSavingsAccount((SavingsAccount) account, input);
+                manageSavingsAccount((SavingsAccount) account, input);
             } else if (account instanceof CheckingAccount) {
-                //manageCheckingAccount((CheckingAccount) account, input);
+                manageCheckingAccount((CheckingAccount) account, input);
             } else if (account instanceof BusinessAccount) {
-                //manageBusinessAccount((BusinessAccount) account, input);
+                manageBusinessAccount((BusinessAccount) account, input);
             } else if (account instanceof CreditAccount) {
-               // manageCreditAccount((CreditAccount) account, input);
+               manageCreditAccount((CreditAccount) account, input);
             } else {
                 System.out.println("Unknown account type.");
             }
@@ -107,8 +107,211 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
+    //******************* MANAGEMENT OF EACH ACCOUNT TYPE******************
+private static void manageCheckingAccount(CheckingAccount account, Scanner input) {
+        int choice = 0;
 
+        while (choice != 5) {
+            System.out.println("\n* * * CHECKING ACCOUNT MENU * * *");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. View Balance");
+            System.out.println("4. Check Loan Eligibility");
+            System.out.println("5. Return");
+            System.out.print("Selection: ");
 
+            choice = getIntInput(input);
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter deposit amount: ");
+                    float dep = getFloatInput(input);
+                    if (account.deposit(dep)) {
+                        System.out.println("Deposit successful.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Enter withdrawal amount: ");
+                    float w = getFloatInput(input);
+                    try {
+                        account.withdraw(w);
+                        System.out.println("Withdrawal successful.");
+                    } catch (InsufficientFunds e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    System.out.println("Balance: $" + account.getBalance());
+                    break;
+
+                case 4:
+                    System.out.println(account.checkLoanEligible()
+                            ? "Eligible for loan"
+                            : "Not eligible for loan");
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
+    }
+private static void manageSavingsAccount(SavingsAccount account, Scanner input) {
+        int choice = 0;
+
+        while (choice != 5) {
+            System.out.println("\n* * * SAVINGS ACCOUNT MENU * * *");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Apply Interest");
+            System.out.println("4. View Balance");
+            System.out.println("5. Return");
+            System.out.print("Selection: ");
+
+            choice = getIntInput(input);
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter deposit amount: ");
+                    float dep = getFloatInput(input);
+                    account.deposit(dep);
+                    break;
+                case 2:
+                    System.out.print("Enter withdrawal amount: ");
+                    float w = getFloatInput(input);
+                    try {
+                        account.withdraw(w);
+                    } catch (InsufficientFunds e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter number of months: ");
+                    int months = getIntInput(input);
+                    System.out.print("Add interest to balance? (1 = yes, 0 = no): ");
+                    boolean add = getIntInput(input) == 1;
+                    float interest = account.applyIntrest(months, add);
+                    System.out.println("Interest: $" + interest);
+                    break;
+                case 4:
+                    System.out.println("Balance: $" + account.getBalance());
+                    break;
+                case 5:
+                    break;
+
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
+    }
+
+private static void manageBusinessAccount(BusinessAccount account, Scanner input) {
+        int choice = 0;
+
+        while (choice != 7) {
+            System.out.println("\n* * * BUSINESS ACCOUNT MENU * * *");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. View Balance");
+            System.out.println("4. Add Authorized User");
+            System.out.println("5. View Authorized Users");
+            System.out.println("6. Check Loan Eligibility");
+            System.out.println("7. Return");
+            System.out.print("Selection: ");
+
+            choice = getIntInput(input);
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter deposit amount: ");
+                    float dep = getFloatInput(input);
+                    account.deposit(dep);
+                    break;
+
+                case 2:
+                    System.out.print("Enter withdrawal amount: ");
+                    float w = getFloatInput(input);
+                    try {
+                        account.withdraw(w);
+                    } catch (InsufficientFunds e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Balance: $" + account.getBalance());
+                    break;
+
+                case 4:
+                    System.out.print("Enter user name: ");
+                    String user = input.nextLine();
+                    account.addAuthorizedUser(user);
+                    break;
+
+                case 5:
+                    System.out.println("Authorized Users:");
+                    for (String u : account.getAuthorizedUsers()) {
+                        System.out.println("- " + u);
+                    }
+                    break;
+
+                case 6:
+                    System.out.println(account.checkLoanEligible()
+                            ? "Eligible for loan"
+                            : "Not eligible for loan");
+                    break;
+
+                case 7:
+                    break;
+
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
+    }
+private static void manageCreditAccount(CreditAccount account, Scanner input) {
+        int choice = 0;
+
+        while (choice != 5) {
+            System.out.println("\n* * * CREDIT ACCOUNT MENU * * *");
+            System.out.println("1. Use Credit");
+            System.out.println("2. Make Payment");
+            System.out.println("3. View Balance");
+            System.out.println("4. View Credit Limit");
+            System.out.println("5. Return");
+            System.out.print("Selection: ");
+
+            choice = getIntInput(input);
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter amount to use: ");
+                    float use = getFloatInput(input);
+                    try {
+                        account.withdraw(use);
+                    } catch (InsufficientFunds e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 2:
+                    System.out.print("Enter payment amount: ");
+                    float pay = getFloatInput(input);
+                    account.deposit(pay);
+                    break;
+                case 3:
+                    System.out.println("Balance (amount owed): $" + account.getBalance());
+                    break;
+                case 4:
+                    System.out.println("Credit Limit: $" + account.getCreditLimit());
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
+    }
     //UTILITIES - i just copied and pasted everything over from project 1 basically
 //helper function to manage possible input prob like same as last time
     private static int getIntInput(Scanner input) {
@@ -129,7 +332,13 @@ public class Main {
             input.nextLine();
         }
     }
-
-
+    // helper for floats
+    private static float getFloatInput(Scanner input) {
+        try {
+            return Float.parseFloat(input.nextLine());
+        } catch (Exception e) {
+            return -1;
+        }
+    }
 
 }// where main class ends
