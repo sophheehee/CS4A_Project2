@@ -1,4 +1,7 @@
-package org.example;
+package org.example.main.accountTypes;
+
+import org.example.main.Account;
+import org.example.main.exceptions.InsufficientFunds;
 
 public class CreditAccount extends Account {
     private float creditLimit;

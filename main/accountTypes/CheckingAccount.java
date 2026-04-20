@@ -1,10 +1,10 @@
-//package org.example;
+package org.example.main.accountTypes;//package org.example;
 
-import org.cs4a.BankProject.Account;
-import org.cs4a.BankProject.InsufficientFunds;
-import org.cs4a.BankProject.IntrestBearing;
+import org.example.main.Account;
+import org.example.main.exceptions.InsufficientFunds;
+import org.example.main.interfaces.LoanEligible;
 
-public class CheckingAccount extends Account implements LoanEligible{
+public class CheckingAccount extends Account implements LoanEligible {
     float minbalance;
     int timesBelowMinBalance;
 
@@ -42,7 +42,7 @@ public class CheckingAccount extends Account implements LoanEligible{
     }
 
     @Override
-    public boolean deposit(float amount) {
+    public float deposit(float amount) {
         return super.deposit(amount);
     }
 

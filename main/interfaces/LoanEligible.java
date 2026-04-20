@@ -1,5 +1,5 @@
-//package org.example;
-import org.cs4a.BankProject;
+package org.example.main.interfaces;
+
 public interface LoanEligible {
     public boolean checkLoanEligible();
 }

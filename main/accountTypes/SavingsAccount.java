@@ -1,8 +1,8 @@
-//package org.example;
+package org.example.main.accountTypes;
 
-import org.cs4a.BankProject.Account;
-import org.cs4a.BankProject.InsufficientFunds;
-import org.cs4a.BankProject.IntrestBearing;
+import org.example.main.exceptions.InsufficientFunds;
+import org.example.main.Account;
+import org.example.main.interfaces.IntrestBearing;
 
 public class SavingsAccount extends Account implements IntrestBearing{
     float intrestrate;
@@ -33,7 +33,7 @@ public class SavingsAccount extends Account implements IntrestBearing{
     }
 
     @Override
-    public float applyIntrest(int months, bool addToBalance){
+    public float applyIntrest(int months, boolean addToBalance){
         float balance = super.getBalance();
         float intrest = (balance * this.intrestrate * months);
         if(addToBalance==true){
@@ -43,7 +43,7 @@ public class SavingsAccount extends Account implements IntrestBearing{
     }
 
     @Override
-    public boolean deposit(float amount) {
+    public float deposit(float amount) {
         return super.deposit(amount);
     }
 

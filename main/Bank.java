@@ -1,4 +1,6 @@
-package org.example;
+package org.example.main;
+
+import org.example.main.exceptions.AccountNotFound;
 
 import java.util.ArrayList;
 import java.util.List;

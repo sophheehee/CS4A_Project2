@@ -1,4 +1,8 @@
-package org.example;
+package org.example.main;
+
+
+import org.example.main.exceptions.InsufficientFunds;
+
 
 public class Account {
     private String accountName;
@@ -51,7 +55,7 @@ public class Account {
         return balance;
     }
 
-    public float withdraw(float amount) throws InsufficientFunds {
+    public float withdraw(float amount) throws InsufficientFunds, InsufficientFunds {
         if (amount > this.balance) {
              throw new InsufficientFunds("Withdrawal Failed, Balance less than " + amount);
         }
